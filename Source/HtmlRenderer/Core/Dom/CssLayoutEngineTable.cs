@@ -678,7 +678,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
                     }
 
                     // If one cell crosses page borders then don't need to check other cells in the row
-                    if (_tableBox.PageBreakInside == CssConstants.Avoid)
+                    if (_tableBox.PageBreakInside == CssConstants.Avoid || _tableBox.PageBreakInside == CssConstants.BreakAll)
                     {
                         breakPage = cell.BreakPage();
                         if (breakPage)
@@ -691,7 +691,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
 
                 if (breakPage) // go back to move the whole row to the next page
                 {
-                    if (i == 1) // do not leave single row in previous page
+                    if (i == 1 || _tableBox.PageBreakInside == CssConstants.BreakAll) // do not leave single row in previous page
                         i = -1; // Start layout from the first row on new page
                     else
                         i--;

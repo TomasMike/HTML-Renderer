@@ -85,7 +85,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Handlers
         {
             ArgChecker.AssertArgNotNull(fontFamily, "family");
 
-            _existingFontFamilies[fontFamily.Name] = fontFamily;
+            _existingFontFamilies[fontFamily.Name.ToLower()] = fontFamily;
         }
 
         /// <summary>
