@@ -1,0 +1,6 @@
+syntax: glob
+**/bin
+**/obj/**
+Source/packages
+Source/.vs
+.git

@@ -1,0 +1,8 @@
+data/Build/getVer.exe.i
+data/Build/NuGet.exe.i
+data/Build/NuGet.exe.d
+data/.hgignore.i
+data/Build/7za.exe.i
+data/Source/.nuget/NuGet.exe.d
+data/Build/7za.exe.d
+data/Source/.nuget/NuGet.exe.i

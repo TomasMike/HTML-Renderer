@@ -63,9 +63,9 @@ namespace TheArtOfDev.HtmlRenderer.PdfSharp
 		private bool _enablePageNumbering;
 
 		/// <summary>
-		/// Whether to display on the left side of the page or not(display it on the right side)
+		/// Where to display the page number
 		/// </summary>
-		private bool _showPageNumberOnLeft;
+		private PageNumberLocation _pageNumberLocation;
 
 		/// <summary>
 		/// Font which will be used in the page numbers text
@@ -76,7 +76,15 @@ namespace TheArtOfDev.HtmlRenderer.PdfSharp
 		/// Pattern from which to generate the page numbers text. Use {0} for current page and {1} for number of total pages, e.g. "{0}/{1}" will generate "1/21" 
 		/// </summary>
 		private string _pageNumbersPattern;
-
+		/// <summary>
+		/// Margin from the bottom of the page edge 
+		/// </summary>
+		private double _pageNumbersMarginBottom;
+		/// <summary>
+		/// Margin from the left/right of the page edge (when the page number is on the left size, it will be the left margin and vice versa.
+		/// If the number is in the middle, this value will be ignored.
+		/// </summary>
+		private double _pageNumbersLeftRightMargin;
 		#endregion
 
 
@@ -170,10 +178,10 @@ namespace TheArtOfDev.HtmlRenderer.PdfSharp
 		/// <summary>
 		/// Whether to display on the left side of the page or not(display it on the right side)
 		/// </summary>
-		public bool ShowPageNumberOnLeft
+		public PageNumberLocation PageNumberLocation
 		{
-			get { return _showPageNumberOnLeft; }
-			set { _showPageNumberOnLeft = value; }
+			get { return _pageNumberLocation; }
+			set { _pageNumberLocation = value; }
 		}
 
 		/// <summary>
@@ -181,7 +189,7 @@ namespace TheArtOfDev.HtmlRenderer.PdfSharp
 		/// </summary>
 		public XFont PageNumbersFont
 		{
-			get { return _pageNumbersFont; }
+			get { return _pageNumbersFont ?? new XFont("Times New Roman", 11); }
 			set { _pageNumbersFont = value; }
 		}
 
@@ -190,9 +198,30 @@ namespace TheArtOfDev.HtmlRenderer.PdfSharp
 		/// </summary>
 		public string PageNumbersPattern
 		{
-			get { return _pageNumbersPattern; }
+			get
+			{
+				return _pageNumbersPattern ?? "{0}/{1}";
+			}
 			set { _pageNumbersPattern = value; }
 		}
+
+
+
+		//Margin from the bottom of the page edge 
+		public double PageNumbersMarginBottom
+		{
+			get { return _pageNumbersMarginBottom; }
+			set { _pageNumbersMarginBottom = value; }
+		}
+
+		//Margin from the left/right of the page edge (when the page number is on the left size, it will be the left margin and vice versa.
+		//If the number is in the middle, this value will be ignored.
+		public double PageNumbersLeftRightMargin
+		{
+			get { return _pageNumbersLeftRightMargin; }
+			set { _pageNumbersLeftRightMargin = value; }
+		}
+
 
 
 		/// <summary>
@@ -228,5 +257,10 @@ namespace TheArtOfDev.HtmlRenderer.PdfSharp
 		public static XSize InchesToUnits(double width, double height) {
 			return new XSize(width * 72, height * 72);
 		}
+	}
+
+	public enum PageNumberLocation
+	{
+		Right,Left,Middle
 	}
 }

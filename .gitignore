@@ -109,3 +109,4 @@ UpgradeLog*.XML
 
 *.DotSettings
 .vs/
+Source/Demo/WinForms/app.config

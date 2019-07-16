@@ -190,20 +190,46 @@ namespace TheArtOfDev.HtmlRenderer.PdfSharp
 							{
 								string pageNumbersStr = string.Format(config.PageNumbersPattern, (-scrollOffset / pageSize.Height) + 1,totalPages);
 								var pageNumbersStrSize = g.MeasureString(pageNumbersStr,config.PageNumbersFont);
-								var xCord = config.ShowPageNumberOnLeft ? config.MarginLeft + pageNumbersStrSize.Width /2: pageSize.Width - pageNumbersStrSize.Width/2;
 
-								// draw page numbers
+								double xCord = 0;
+								switch (config.PageNumberLocation)
+								{
+									case PageNumberLocation.Left:
+										xCord = config.MarginLeft + pageNumbersStrSize.Width / 2;
+										break;
+									case PageNumberLocation.Middle:
+										xCord = config.MarginLeft + pageSize.Width / 2 - pageNumbersStrSize.Width / 2;
+										break;
+									case PageNumberLocation.Right:
+										xCord = pageSize.Width - pageNumbersStrSize.Width / 2;
+										break;
+
+								}
+
+								//draw page numbers
 								g.DrawString(
 									pageNumbersStr,
 									config.PageNumbersFont,
 									new XSolidBrush(),
-									new XPoint(xCord, page.Height - 10));
+									new XPoint(xCord, page.Height - config.PageNumbersMarginBottom));
 
-								g.DrawString(
-									pageNumbersStr,
-									config.PageNumbersFont,
-									new XSolidBrush(),
-									new XPoint(config.MarginLeft + pageNumbersStrSize.Width / 2, page.Height - 10));
+								//g.DrawString(
+								//	"middle",
+								//	config.PageNumbersFont,
+								//	new XSolidBrush(),
+								//	new XPoint(0, page.Height - config.PageNumbersMarginBottom));
+
+								//g.DrawString(
+								//	"right",
+								//	config.PageNumbersFont,
+								//	new XSolidBrush(),
+								//	new XPoint(pageSize.Width/2 + config.MarginLeft - g.MeasureString("x", config.PageNumbersFont).Width, page.Height - config.PageNumbersMarginBottom));
+
+								//g.DrawString(
+								//	"left",
+								//	config.PageNumbersFont,
+								//	new XSolidBrush(),
+								//	new XPoint(config.MarginLeft + g.MeasureString("left", config.PageNumbersFont).Width / 2, page.Height - config.PageNumbersMarginBottom));
 							}
 						}
 
